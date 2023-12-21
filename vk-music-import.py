@@ -293,12 +293,23 @@ class MainTab(QWidget, MainEnv):
                     tracklist.append(parsed_row.groups())
         else:
             for text_line in text_lines:
+                # Ну это я не знаю, что такое. 
+                # Многострочность с тире и дефисом ^([^-—]+)
+                # Просто символ тире и дефиса [-—]
+                # Переносы строк, которых много, от 1 и больше ([^\r\n]+) 
+                # Ну в начале маска многострочности, а дальше не особо понятно, что это такое
+                # Ну еще [^-—] может означать, что не(отрицание), не знаю, как в Питоне
+                # Но оно все разделено скобкой, видимо чтобы игнорировать многострочность. 
+                # ^[^.+]+ вот допустим маска многострочности. Она берет все на всех строках
+                # В отличии от .+, которая является просто однострочной маской всего(от1 символа и больше)
                 parsed_row = re.match(r"^([^-—]+)[-—]([^\r\n]+)", text_line)
-                if parsed_row is not None:
+                #if parsed_row is not None: |||||||| Здесь исправил
+                if parsed_row is not re.match(r"^\h*\s*"):
                     tracklist.append((parsed_row.group(1).strip(), parsed_row.group(2).strip()))
                     continue
                 parsed_row = re.match(r"^(\S+)\s(.+)", text_line)
-                if parsed_row is not None:
+                #if parsed_row is not None: |||||||| Здесь исправил
+                if parsed_row is not re.match(r"^\h*\s*"):
                     track_info = (parsed_row.group(1).strip(), parsed_row.group(2).strip(),)
                     tracklist.append(track_info)
                     self.add_log(
