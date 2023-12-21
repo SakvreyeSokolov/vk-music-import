@@ -293,7 +293,11 @@ class MainTab(QWidget, MainEnv):
 Здесь-----------parsed_row = re.match(r"^\h*(https://vk.com/)*(vk://)*(\[*)*([Aa]udio)+([s]*/*)(\-*\d+)?_(\d+)(?:_([a-z0-9]+))?(\.mp3)*(\]*)*\h*", text_line)
                 # if parsed_row is not None and len(parsed_row.groups()) == 3: |||||||| Здесь исправил 
 Здесь-----------if parsed_row is not re.match(r"^\h*\s*") and re.match(r"^\h*(https://vk.com/)*(vk://)*(\[*)*([Aa]udio)+([s]*/*)(\-*\d+)?_(\d+)(?:_([a-z0-9]+))?(\.mp3)*(\]*)*\h*", text_line)
-                    tracklist.append(parsed_row.groups())
+                                                              # Для фильтрации строк
+                                                              # Сделай здесь какую-то регулярку, или простую, или сложную, в зависимости от метода, 
+                                                              # можете укзать или ту, что выше указал, или подобую этой
+                                                              # Если в основе простую регулярку использовать, с минимумом правок ^\h*https://.+\h*
+tracklist.append(parsed_row.groups())
         else:
             for text_line in text_lines:
                 # Ну это я не знаю, что такое. 
