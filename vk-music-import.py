@@ -323,7 +323,7 @@ class MainTab(QWidget, MainEnv):
                 # Но это тоже вообще не очень правильная маска
                 # В строке трэклиста может вообще быть 1 слово
                 #if parsed_row is not None: |||||||| Здесь исправил
-Здесь-----------if parsed_row is not re.match(r"^\h*\s*", text_line)):
+Здесь-----------if parsed_row is not re.match(r"^\h*\s*", text_line):
                 
                     track_info = (parsed_row.group(1).strip(), parsed_row.group(2).strip(),)
                     tracklist.append(track_info)
