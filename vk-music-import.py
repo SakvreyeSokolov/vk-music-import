@@ -289,7 +289,7 @@ class MainTab(QWidget, MainEnv):
         if use_audio_links:
             for text_line in text_lines:
                 # https://t.me/mewnotes/219?comment=779
-                # parsed_row = re.match(r"^https://vk\.com/audio(\d+)_(\d+)(?:_([a-z0-9]+))?", text_line) |||||||| Здесь исправил 
+                # parsed_row = re.match(r"^https://vk\.com/audio(-*\d+)_(\d+)(?:_([a-z0-9]+))?", text_line) |||||||| Здесь исправил 
                 parsed_row = re.match(r"^\h*(https://vk.com/)*(vk://)*(\[*)*([Aa]udio)+([s]*/*)(\-*\d+)?_(\d+)(?:_([a-z0-9]+))?(\.mp3)*(\]*)*\h*", text_line)
                 # if parsed_row is not None and len(parsed_row.groups()) == 3: |||||||| Здесь исправил 
                 if parsed_row is not re.match(r"^\h*\s*") and re.match(r"^\h*(https://vk.com/)*(vk://)*(\[*)*([Aa]udio)+([s]*/*)(\-*\d+)?_(\d+)(?:_([a-z0-9]+))?(\.mp3)*(\]*)*\h*", text_line)
@@ -318,7 +318,13 @@ class MainTab(QWidget, MainEnv):
                     continue
                 parsed_row = re.match(r"^(\S+)\s(.+)", text_line)
                 #if parsed_row is not None: |||||||| Здесь исправил
-                if parsed_row is not re.match(r"^\h*\s*"):
+                if parsed_row is not re.match(r"^\h*\s*", text_line)):
+                Ну вроде правильно здесь
+                Не пробел, пробел и остальное
+                Можно написать вот так было бы
+                (.+)?\s(.+)
+                Но это тоже вообще не очень правильная маска
+                В строке трэклиста может вообще быть 1 слово
                     track_info = (parsed_row.group(1).strip(), parsed_row.group(2).strip(),)
                     tracklist.append(track_info)
                     self.add_log(
