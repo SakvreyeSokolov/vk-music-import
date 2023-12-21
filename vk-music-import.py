@@ -290,9 +290,9 @@ class MainTab(QWidget, MainEnv):
             for text_line in text_lines:
                 # https://t.me/mewnotes/219?comment=779
                 # parsed_row = re.match(r"^https://vk\.com/audio(-*\d+)_(\d+)(?:_([a-z0-9]+))?", text_line) |||||||| Здесь исправил 
-                parsed_row = re.match(r"^\h*(https://vk.com/)*(vk://)*(\[*)*([Aa]udio)+([s]*/*)(\-*\d+)?_(\d+)(?:_([a-z0-9]+))?(\.mp3)*(\]*)*\h*", text_line)
+Здесь-----------parsed_row = re.match(r"^\h*(https://vk.com/)*(vk://)*(\[*)*([Aa]udio)+([s]*/*)(\-*\d+)?_(\d+)(?:_([a-z0-9]+))?(\.mp3)*(\]*)*\h*", text_line)
                 # if parsed_row is not None and len(parsed_row.groups()) == 3: |||||||| Здесь исправил 
-                if parsed_row is not re.match(r"^\h*\s*") and re.match(r"^\h*(https://vk.com/)*(vk://)*(\[*)*([Aa]udio)+([s]*/*)(\-*\d+)?_(\d+)(?:_([a-z0-9]+))?(\.mp3)*(\]*)*\h*", text_line)
+Здесь-----------if parsed_row is not re.match(r"^\h*\s*") and re.match(r"^\h*(https://vk.com/)*(vk://)*(\[*)*([Aa]udio)+([s]*/*)(\-*\d+)?_(\d+)(?:_([a-z0-9]+))?(\.mp3)*(\]*)*\h*", text_line)
                     tracklist.append(parsed_row.groups())
         else:
             for text_line in text_lines:
@@ -311,9 +311,8 @@ class MainTab(QWidget, MainEnv):
                 # Плюс в начале экранирование от многострочности ^([^-—]+). И потом эта первая группа берется
                 parsed_row = re.match(r"^([^-—]+)[-—]([^\r\n]+)", text_line)
                 #if parsed_row is not None: |||||||| Здесь исправил
-                if parsed_row is not re.match(r"^\h*\s*", text_line):
+Здесь-----------if parsed_row is not re.match(r"^\h*\s*", text_line):
                 # if parsed_row is not re.match(r"^\h*\s*"): тут я не знаю, как правильно написать, правильно ли text_line в данном случаи
-                # х
                     tracklist.append((parsed_row.group(1).strip(), parsed_row.group(2).strip()))
                     continue
                 parsed_row = re.match(r"^(\S+)\s(.+)", text_line)
@@ -324,7 +323,7 @@ class MainTab(QWidget, MainEnv):
                 # Но это тоже вообще не очень правильная маска
                 # В строке трэклиста может вообще быть 1 слово
                 #if parsed_row is not None: |||||||| Здесь исправил
-                if parsed_row is not re.match(r"^\h*\s*", text_line)):
+Здесь-----------if parsed_row is not re.match(r"^\h*\s*", text_line)):
                 
                     track_info = (parsed_row.group(1).strip(), parsed_row.group(2).strip(),)
                     tracklist.append(track_info)
