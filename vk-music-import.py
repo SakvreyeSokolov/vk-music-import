@@ -288,8 +288,11 @@ class MainTab(QWidget, MainEnv):
             return
         if use_audio_links:
             for text_line in text_lines:
-                parsed_row = re.match(r"^https://vk\.com/audio(\d+)_(\d+)(?:_([a-z0-9]+))?", text_line)
-                if parsed_row is not None and len(parsed_row.groups()) == 3:
+                # https://t.me/mewnotes/219?comment=779
+                # parsed_row = re.match(r"^https://vk\.com/audio(\d+)_(\d+)(?:_([a-z0-9]+))?", text_line) |||||||| Здесь исправил 
+                parsed_row = re.match(r"^\h*(https://vk.com/)*(vk://)*(\[*)*([Aa]udio)+([s]*/*)(\-*\d+)?_(\d+)(?:_([a-z0-9]+))?(\.mp3)*(\]*)*\h*", text_line)
+                # if parsed_row is not None and len(parsed_row.groups()) == 3: |||||||| Здесь исправил 
+                if parsed_row is not re.match(r"^\h*\s*") and re.match(r"^\h*(https://vk.com/)*(vk://)*(\[*)*([Aa]udio)+([s]*/*)(\-*\d+)?_(\d+)(?:_([a-z0-9]+))?(\.mp3)*(\]*)*\h*", text_line)
                     tracklist.append(parsed_row.groups())
         else:
             for text_line in text_lines:
@@ -302,9 +305,15 @@ class MainTab(QWidget, MainEnv):
                 # Но оно все разделено скобкой, видимо чтобы игнорировать многострочность. 
                 # ^[^.+]+ вот допустим маска многострочности. Она берет все на всех строках
                 # В отличии от .+, которая является просто однострочной маской всего(от1 символа и больше)
+                # https://regex101.com/r/Ij3lLc/1
+                # В [^=] в Питоне значит отрицание (не -)(не перерос строк(ниже))
+                # В общем суть строки, не тире, в начале, что-угодно, дальше тире, или дефис и не перенос строк в конце
+                # Плюс в начале экранирование от многострочности ^([^-—]+). И потом эта первая группа берется
                 parsed_row = re.match(r"^([^-—]+)[-—]([^\r\n]+)", text_line)
                 #if parsed_row is not None: |||||||| Здесь исправил
-                if parsed_row is not re.match(r"^\h*\s*"):
+                if parsed_row is not re.match(r"^\h*\s*", text_line):
+                # if parsed_row is not re.match(r"^\h*\s*"): тут я не знаю, как правильно написать, правильно ли text_line в данном случаи
+                # х
                     tracklist.append((parsed_row.group(1).strip(), parsed_row.group(2).strip()))
                     continue
                 parsed_row = re.match(r"^(\S+)\s(.+)", text_line)
