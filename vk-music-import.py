@@ -317,14 +317,15 @@ class MainTab(QWidget, MainEnv):
                     tracklist.append((parsed_row.group(1).strip(), parsed_row.group(2).strip()))
                     continue
                 parsed_row = re.match(r"^(\S+)\s(.+)", text_line)
+                # Ну вроде правильно здесь
+                # Не пробел, пробел и остальное
+                # Можно написать вот так было бы
+                # (.+)?\s(.+)
+                # Но это тоже вообще не очень правильная маска
+                # В строке трэклиста может вообще быть 1 слово
                 #if parsed_row is not None: |||||||| Здесь исправил
                 if parsed_row is not re.match(r"^\h*\s*", text_line)):
-                Ну вроде правильно здесь
-                Не пробел, пробел и остальное
-                Можно написать вот так было бы
-                (.+)?\s(.+)
-                Но это тоже вообще не очень правильная маска
-                В строке трэклиста может вообще быть 1 слово
+                
                     track_info = (parsed_row.group(1).strip(), parsed_row.group(2).strip(),)
                     tracklist.append(track_info)
                     self.add_log(
